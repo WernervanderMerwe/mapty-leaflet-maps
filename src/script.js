@@ -59,12 +59,9 @@ class Cycling extends Workout {
   }
 }
 
-// const run1 = new Running([39, -12], 5.2, 24, 178);
-// const cycling1 = new Cycling([39, -12], 27, 95, 523);
-// console.log(run1, cycling1);
-
 ////////////////////////////////////////////////
 // Application architecture
+const init = document.querySelector('.init');
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -72,6 +69,7 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const resetBtn = document.querySelector('.resetBtn');
 
 class App {
   #map;
@@ -90,6 +88,7 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    resetBtn.addEventListener('click', this.reset.bind(this));
   }
 
   _getPosition() {
@@ -105,7 +104,7 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+    // console.log(`https://www.google.com/maps/@${latitude},${longitude}`); //keeping this in as a cool show where you are on google maps thing
 
     const coords = [latitude, longitude];
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
@@ -125,6 +124,7 @@ class App {
 
   _showForm(mapE) {
     this.#mapEvent = mapE;
+    init.remove();
     form.classList.remove('hidden');
     inputDistance.focus();
   }
@@ -165,9 +165,6 @@ class App {
       const cadence = +inputCadence.value;
       // check if data is valid
       if (
-        // !Number.isFinite(distance) ||
-        // !Number.isFinite(duration) ||
-        // !Number.isFinite(cadence)
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
       )
@@ -203,6 +200,9 @@ class App {
 
     // Set local storage to all workouts
     this._setLocalStorage();
+
+    // show resetbtn when adding a workout
+    resetBtn.classList.remove('hidden');
   }
 
   _renderWorkoutMarker(workout) {
@@ -303,6 +303,9 @@ class App {
 
     if (!data) return;
 
+    init.remove();
+    resetBtn.classList.remove('hidden');
+    console.log(resetBtn);
     this.#workouts = data;
 
     this.#workouts.forEach(work => {
@@ -312,6 +315,7 @@ class App {
 
   reset() {
     localStorage.removeItem('workouts');
+    resetBtn.classList.add('hidden');
     location.reload();
   }
 }
