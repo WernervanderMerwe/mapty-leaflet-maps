@@ -305,7 +305,6 @@ class App {
 
     init.remove();
     resetBtn.classList.remove('hidden');
-    console.log(resetBtn);
     this.#workouts = data;
 
     this.#workouts.forEach(work => {
