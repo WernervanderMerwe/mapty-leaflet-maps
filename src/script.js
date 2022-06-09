@@ -1,5 +1,11 @@
 'use strict';
 
+// import * as L from 'leaflet';
+
+while (!L) {
+  setTimeout(() => {}, 100);
+}
+
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
@@ -58,6 +64,8 @@ class Cycling extends Workout {
     return this.speed;
   }
 }
+
+// console.log(L);
 
 ////////////////////////////////////////////////
 // Application architecture
