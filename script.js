@@ -2,9 +2,11 @@
 
 // import * as L from 'leaflet';
 
-while (!L) {
-  setTimeout(() => {}, 100);
-}
+// while (!L) {
+//   setTimeout(() => {}, 100);
+// }
+
+console.log(L);
 
 class Workout {
   date = new Date();
@@ -81,7 +83,7 @@ const resetBtn = document.querySelector('.resetBtn');
 
 class App {
   #map;
-  #mapZoomLevel = 13;
+  #mapZoomLevel = 14;
   #mapEvent;
   #workouts = [];
 
