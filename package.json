@@ -1,7 +1,7 @@
 {
   "name": "mapty-leaflet-maps",
   "description": "Mapty application using leaflet maps API to track exercise",
-  "source": "./src/index.html",
+  "source": "index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel",
